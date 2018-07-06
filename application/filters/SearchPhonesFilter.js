@@ -4,7 +4,6 @@ export default function SearchPhonesFilter(){
 
     return function ( phones , searchString ){
 
-        console.log(phones , searchString);
 
         return phones.filter(
                 p =>

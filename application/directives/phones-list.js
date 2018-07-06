@@ -16,7 +16,7 @@ export default function PhonesList(){
 
             $scope.phoneImageClick = function ( url ){
 
-                alert(url);
+
 
             }
 
