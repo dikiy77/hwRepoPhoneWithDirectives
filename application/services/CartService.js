@@ -61,6 +61,28 @@ export default class CartService{
 
     }
 
+    popPhone(index ){
+
+
+
+
+                let p = this.cart[index];
+
+                if(p.amount === 1){
+
+                    this.removePhone( index );
+
+                }//if
+        else{
+                    p.amount--;
+
+        }//else
+
+        this.localStorageService.set( 'cart' , this.cart );
+
+    }
+
+
     clearCart(){
 
         this.localStorageService.clearAll();

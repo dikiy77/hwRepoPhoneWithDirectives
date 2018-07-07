@@ -17,6 +17,18 @@ export default class CartController{
 
         };
 
+        $scope.AddToCart = function (phone){
+
+            CartService.addPhone( phone );
+            //$scope.apply();
+        };
+
+        $scope.popPhone = function (index){
+
+            CartService.popPhone( index );
+            //$scope.apply();
+        };
+
     }
 
 };

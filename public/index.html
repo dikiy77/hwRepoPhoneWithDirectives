@@ -53,6 +53,9 @@
 
                     <section ng-controller="CartController" >
                         <p>Shopping Cart</p>
+                        <h2>
+                            <a ng-href="/hwRepoPhoneWithDirectives/public/cart">В корзину</a>
+                        </h2>
                         <div ng-if="cart.length !== 0" >
                             <button ng-click="ClearCart()" >Clear cart</button>
                         </div>

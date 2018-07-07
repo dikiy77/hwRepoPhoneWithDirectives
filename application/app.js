@@ -87,7 +87,7 @@ app.config( [
 
     $routeProvider.when('/single-phone/:phoneID' , {
 
-        controller: [ '$scope', 'phone' , 'CartService' ,  PhoneController],
+        controller: [ '$scope', 'phone',  PhoneController],
         templateUrl: 'templates/single-phone.html',
         resolve: {
             'phone': [ 'PhoneService', '$route' , function (PhoneService, $route){
@@ -97,6 +97,13 @@ app.config( [
             }]
         }
     });
+
+        $routeProvider.when('/cart' , {
+
+        controller: ['$scope' , 'CartService' , CartController],
+        templateUrl: 'templates/cart-template.html',
+
+        });
 
 } ] );
 

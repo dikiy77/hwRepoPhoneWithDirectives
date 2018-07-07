@@ -9,13 +9,13 @@
 
     <p ng-bind="phone.description"></p>
 
-    <!--<images list="phone.images" ></images>-->
+
 
     <ul id="PhonesOwlCarousel" style="list-style-type: none" class="owl-theme owl-carousel">
-        <li ng-repeat="photo in phone.images">
+        <li ng-click="setThumbnail(photo)" ng-repeat="photo in phone.images">
 
-            <img ng-click="setThumbnail(photo)" ng-src="{{photo}}">
-            <div ng-include="includeTemplate()"></div>
+            <img ng-src="{{photo}}">
+
 
         </li>
     </ul>

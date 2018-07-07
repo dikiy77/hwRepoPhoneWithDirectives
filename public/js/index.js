@@ -192,7 +192,7 @@ app.config( [
 
     $routeProvider.when('/single-phone/:phoneID' , {
 
-        controller: [ '$scope', 'phone' , 'CartService' ,  _controllers_PhoneController__WEBPACK_IMPORTED_MODULE_1__["default"]],
+        controller: [ '$scope', 'phone',  _controllers_PhoneController__WEBPACK_IMPORTED_MODULE_1__["default"]],
         templateUrl: 'templates/single-phone.html',
         resolve: {
             'phone': [ 'PhoneService', '$route' , function (PhoneService, $route){
@@ -202,6 +202,13 @@ app.config( [
             }]
         }
     });
+
+        $routeProvider.when('/cart' , {
+
+        controller: ['$scope' , 'CartService' , _controllers_CartController__WEBPACK_IMPORTED_MODULE_2__["default"]],
+        templateUrl: 'templates/cart-template.html',
+
+        });
 
 } ] );
 
@@ -236,6 +243,18 @@ class CartController{
 
             CartService.clearCart();
 
+        };
+
+        $scope.AddToCart = function (phone){
+
+            CartService.addPhone( phone );
+            //$scope.apply();
+        };
+
+        $scope.popPhone = function (index){
+
+            CartService.popPhone( index );
+            //$scope.apply();
         };
 
     }
@@ -284,26 +303,13 @@ __webpack_require__.r(__webpack_exports__);
 
 class PhoneController{
 
-    constructor($scope, phone , CartService ){
+    constructor($scope, phone ){
 
         $scope.thumbnail = phone.images[0];
 
         $scope.phone = phone;
 
-        $scope.addPhoneToCart = function ( phone ){
-            CartService.addPhone( phone );
-        };
-
-
-        $scope.setThumbnail = this._setThumbnail.bind( this, $scope );
-
     }
-
-    _setThumbnail($scope , photo ){
-
-        $scope.thumbnail = photo;
-
-    }//_setThumbnail
 
 }
 
@@ -329,22 +335,35 @@ function PhoneInfo(){
             thumbnail: '=',
             phone: '=',
         },
-            templateUrl: 'templates/directives/phone-info.html',
-            controller: ['$scope' , function ( $scope ){
+        templateUrl: 'templates/directives/phone-info.html',
+        controller: ['$scope', 'CartService' , function ( $scope, CartService ){
 
-                    console.log($scope);
+                    //console.log($scope);
 
-                $scope.includeTemplate= function (){
 
-                    return 'templates/scripts.html';
+                $scope.setThumbnail = function (photo ){
 
-                };//includeTemplate
+                    $scope.thumbnail = photo;
 
-                $scope.setThumbnail = $scope.$parent.setThumbnail;
+                };//setThumbnail
 
-                $scope.addPhoneToCart = $scope.$parent.addPhoneToCart;
+                $scope.addPhoneToCart = function ( phone ){
+                    CartService.addPhone( phone );
+                };
+        }],
 
-            }]
+        link: function (  ) {
+
+            $(document).ready(() => {
+
+                $('#PhonesOwlCarousel').owlCarousel({
+                    items: 2,
+                    nav: true,
+                    autoWidth: true,
+                    margin: 10
+                });
+            });
+        },
 
 
     };//return
@@ -495,6 +514,28 @@ class CartService{
         };
 
     }
+
+    popPhone(index ){
+
+
+
+
+                let p = this.cart[index];
+
+                if(p.amount === 1){
+
+                    this.removePhone( index );
+
+                }//if
+        else{
+                    p.amount--;
+
+        }//else
+
+        this.localStorageService.set( 'cart' , this.cart );
+
+    }
+
 
     clearCart(){
 

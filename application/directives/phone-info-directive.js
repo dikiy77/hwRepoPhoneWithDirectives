@@ -8,22 +8,35 @@ export  default function PhoneInfo(){
             thumbnail: '=',
             phone: '=',
         },
-            templateUrl: 'templates/directives/phone-info.html',
-            controller: ['$scope' , function ( $scope ){
+        templateUrl: 'templates/directives/phone-info.html',
+        controller: ['$scope', 'CartService' , function ( $scope, CartService ){
 
                     //console.log($scope);
 
-                $scope.includeTemplate= function (){
 
-                    return 'templates/scripts.html';
+                $scope.setThumbnail = function (photo ){
 
-                };//includeTemplate
+                    $scope.thumbnail = photo;
 
-                $scope.setThumbnail = $scope.$parent.setThumbnail;
+                };//setThumbnail
 
-                $scope.addPhoneToCart = $scope.$parent.addPhoneToCart;
+                $scope.addPhoneToCart = function ( phone ){
+                    CartService.addPhone( phone );
+                };
+        }],
 
-            }]
+        link: function (  ) {
+
+            $(document).ready(() => {
+
+                $('#PhonesOwlCarousel').owlCarousel({
+                    items: 2,
+                    nav: true,
+                    autoWidth: true,
+                    margin: 10
+                });
+            });
+        },
 
 
     };//return
