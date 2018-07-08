@@ -1,26 +1,7 @@
+<div
+        in-basket-directive
+        cart="cart"
+>
 
-    <h1>Shopping Cart</h1>
-    <h2>
-        <a ng-href="/hwRepoPhoneWithDirectives/public/">Вернуться к покупкам</a>
-    </h2>
-    <div ng-if="cart.length !== 0" >
-        <button ng-click="ClearCart()" >Clear cart</button>
-    </div>
-    <div style="color: red;" ng-if="cart.length === 0" >Cart is empty!</div>
+</div>
 
-    <ul class="phones">
-
-        <li ng-repeat="cartItem in cart" class="thumbnail">
-            <a ng-href="single-phone/{{cartItem.id}}" class="thumb">
-                <img alt="{{cartItem.name}}" ng-src="img/phones/{{cartItem.id}}.0.jpg">
-            </a>
-
-            <span ng-bind="cartItem.name"></span>
-            <span >Amount:  </span>
-            <span ng-click="AddToCart(cartItem)"> + </span>
-            <span style="border:#1ccacd" ng-bind="cartItem.amount"></span>
-            <span ng-click="popPhone($index)"> - </span>
-            <span ng-click="RemoveItem($index)" style="color: red; font-size: 18px; cursor: pointer">X</span>
-
-        </li>
-    </ul>

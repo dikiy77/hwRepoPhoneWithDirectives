@@ -4,7 +4,7 @@
 import CatalogueController from './controllers/CatalogueController';
 import PhoneController from './controllers/PhoneController';
 import CartController from './controllers/CartController';
-
+import inBasketController from './controllers/inBasketController';
 //====================SERVICES==============================//
 import CartService from './services/CartService';
 import PhoneService from './services/PhoneService';
@@ -15,6 +15,7 @@ import SearchPhonesFilter from './filters/SearchPhonesFilter';
 //====================DIRECTIVES==============================//
 import PhonesList from './directives/phones-list';
 import PhoneInfo from './directives/phone-info-directive';
+import  inBasketDirective from './directives/inBascetDirective';
 
 angular.module('PhoneApplication.controllers' , []);
 angular.module('PhoneApplication.services' , []);
@@ -52,6 +53,10 @@ angular.module('PhoneApplication.directives' )
 
 angular.module('PhoneApplication.directives' )
     .directive('phoneInfoDirective' , PhoneInfo);
+
+angular.module('PhoneApplication.directives' )
+    .directive('inBasketDirective' , inBasketDirective);
+
 
 let app = angular.module('PhoneApplication',[
     'ngRoute',
@@ -100,9 +105,14 @@ app.config( [
 
         $routeProvider.when('/cart' , {
 
-        controller: ['$scope' , 'CartService' , CartController],
+        controller: ['$scope' , 'cart' , inBasketController],
         templateUrl: 'templates/cart-template.html',
+        resolve: {
+                'cart': [ 'CartService' , function (CartService){
 
+                    return CartService.getCart();
+                }]
+            }
         });
 
 } ] );
